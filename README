@@ -1,1 +1,2 @@
-empty
+docker build .
+docker run -it <image_id> python word.py --help

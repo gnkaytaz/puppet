@@ -5,6 +5,7 @@ function: Convert plain text to the list of vanity-addresses
 """
 from subprocess import Popen, PIPE
 import argparse
+import base58
 
 UNIT_SIZE = 2
 
@@ -25,15 +26,23 @@ def sorted_keys(text):
 
         return pairs
 
+def b64tob58(text, n):
+    '''return the list of base58-strings with n-chars lenght'''
+    line = str(base58.b58encode(text))
+    return [line[i:i+n] for i in range(0, len(line), n)]
+
+
 def main():
         parser = argparse.ArgumentParser()
         parser.add_argument('--text', help='word to convert')
+        parser.add_argument('--number', help='number of bites that to reserve in address')
         args = parser.parse_args()
 
         text = vars(args)['text']
+        n = int(vars(args)['number'])
 
 
-        print sorted_keys(text)
+        print b64tob58(text, n)
 
 
 if __name__ == "__main__":
