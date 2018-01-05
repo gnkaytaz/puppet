@@ -29,7 +29,9 @@ def sorted_keys(text):
 def b64tob58(text, n):
     '''return the list of base58-strings with n-chars lenght'''
     line = str(base58.b58encode(text))
+    #todo: also should return count of chars in the last string
     return [line[i:i+n] for i in range(0, len(line), n)]
+
 
 
 def main():
